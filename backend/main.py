@@ -7,7 +7,7 @@ from alpha_beta import alpha_beta
 from typing import List
 from pydantic import BaseModel, Field
 import math
-from type import O_PLAYER, X_PLAYER
+from constant import O_PLAYER, X_PLAYER
 
 app = FastAPI()
 
@@ -74,7 +74,10 @@ def get_fanorona_move(request: GameRequest):
 
     alpha_beta(node, depth=9, alpha=-math.inf, beta=math.inf, maximizing_player=node.turn)
 
-    return {
-        "best_board": node.best.board,
-        "next_turn": node.best.turn
-    }
+    print(node.best.turn)
+
+    return GameResponse(
+        best_board=node.best.board,
+        next_turn=node.best.turn,
+        message="Meilleur coup calculé avec succès."
+    )

@@ -1,6 +1,6 @@
 from typing import Optional, List
 from gameNode import GameNode
-from type import O_PLAYER, X_PLAYER
+from constant import O_PLAYER, X_PLAYER
 
 class TicTacToeNode(GameNode['TicTacToeNode', int]):
     def __init__(self, board: Optional[List[int]] = None, turn: int = X_PLAYER):
