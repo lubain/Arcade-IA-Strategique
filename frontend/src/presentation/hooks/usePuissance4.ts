@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   playDrop,
   checkWinner,
@@ -11,16 +11,20 @@ import {
 } from "@/game/puissance4Utils";
 import "@/presentation/styles/p4.css";
 import { GetBestMoveIa } from "@/game/api";
+import { useDelayedThinking } from "./useDelayedThinking";
 
 const best = new GetBestMoveIa();
 
 export const usePuissance4 = () => {
   const [board, setBoard] = useState<number[]>(Array(ROWS * COLS).fill(EMPTY));
-  const [turn, setTurn] = useState<number>(X); // X commence (Humain)
+  const [turn, setTurn] = useState<number>(X);
   const [winner, setWinner] = useState<number>(EMPTY);
-  const [isAiThinking, setIsAiThinking] = useState(false);
+  const {
+    isThinking: isAiThinking,
+    beginThinking,
+    stopThinking,
+  } = useDelayedThinking();
 
-  // --- TOUR DE L'IA ---
   useEffect(() => {
     if (turn === O && winner === EMPTY && !isBoardFull(board)) {
       fetchAiMove();
@@ -28,7 +32,8 @@ export const usePuissance4 = () => {
   }, [turn, winner, board]);
 
   const fetchAiMove = async () => {
-    setIsAiThinking(true);
+    beginThinking();
+
     try {
       const data = await best.bestMovePuissance4(board);
       if (!data) {
@@ -42,11 +47,10 @@ export const usePuissance4 = () => {
     } catch (error) {
       console.error("Erreur IA:", error);
     } finally {
-      setIsAiThinking(false);
+      stopThinking();
     }
   };
 
-  // --- CLIC HUMAIN ---
   const handleCellClick = (index: number) => {
     if (turn !== X || winner !== EMPTY || isAiThinking) return;
 
@@ -63,15 +67,19 @@ export const usePuissance4 = () => {
       }
     }
   };
+
   const resetGame = () => {
     setBoard(Array(ROWS * COLS).fill(EMPTY));
     setTurn(X);
     setWinner(EMPTY);
+    stopThinking();
   };
+
   return {
     winner,
     board,
     turn,
+    isThinking: isAiThinking,
     resetGame,
     handleCellClick,
   };

@@ -3,7 +3,9 @@ import "@/presentation/styles/p4.css";
 import { usePuissance4 } from "../hooks/usePuissance4";
 
 const Puissance4 = () => {
-  const { winner, board, turn, resetGame, handleCellClick } = usePuissance4();
+  const { winner, board, turn, isThinking, resetGame, handleCellClick } =
+    usePuissance4();
+
   return (
     <main className="ttt-page">
       <section>
@@ -20,18 +22,29 @@ const Puissance4 = () => {
             <span>
               Tour :{" "}
               <span className={turn === X ? "text-red" : "text-yellow"}>
-                {turn === X ? "Rouge (Vous)" : "Jaune (IA...)"}
+                {turn === X ? "Rouge (Vous)" : "Jaune (IA)"}
               </span>
             </span>
           )}
         </div>
 
-        <div className="p4-board">
-          {board.map((cell, i) => (
-            <div key={i} className="p4-cell" onClick={() => handleCellClick(i)}>
-              <div className={`p4-slot slot-${cell}`} />
+        <div className="game-surface p4-surface">
+          <div className={`p4-board ${isThinking ? "is-thinking" : ""}`}>
+            {board.map((cell, i) => (
+              <div key={i} className="p4-cell" onClick={() => handleCellClick(i)}>
+                <div className={`p4-slot slot-${cell}`} />
+              </div>
+            ))}
+          </div>
+
+          {isThinking && (
+            <div className="game-overlay" aria-live="polite">
+              <div className="thinking-indicator thinking-indicator-overlay">
+                <span className="thinking-spinner" aria-hidden="true" />
+                <span>L'IA cherche la meilleure colonne...</span>
+              </div>
             </div>
-          ))}
+          )}
         </div>
 
         <button className="reset-btn" onClick={resetGame}>

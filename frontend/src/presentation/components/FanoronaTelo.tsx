@@ -9,67 +9,88 @@ const toSymbol = (value: number): string => {
 };
 
 const FanoronaTelo = () => {
-  const { placementMode, board, selected, setGameState, handleClick } =
-    useFanoronaTelo();
+  const {
+    placementMode,
+    board,
+    selected,
+    turn,
+    winner,
+    isThinking,
+    setGameState,
+    handleClick,
+  } = useFanoronaTelo();
+
+  const status =
+    winner !== 0
+      ? `Gagnant: ${winner === X ? "X" : "O"}`
+      : isThinking
+        ? "L'IA reflechit..."
+        : `Tour: ${turn === X ? "X" : "O"}`;
 
   return (
     <main className="ttt-page">
       <section className="ttt-card">
         <h1 className="ttt-title">Fanoro Telo</h1>
         <p className="ttt-status">
-          {status} {placementMode ? "(placement)" : "(déplacement)"}
+          {status} {placementMode ? "(placement)" : "(deplacement)"}
         </p>
 
-        <div
-          className="fanorona-board"
-          role="grid"
-          aria-label="Plateau Fanoro Telo"
-        >
-          <svg
-            className="fanorona-lines"
-            viewBox="0 0 100 100"
-            aria-hidden="true"
-          >
-            <rect x="0" y="0" width="100" height="100" rx="0" />
-            <line x1="50" y1="0" x2="50" y2="100" />
-            <line x1="0" y1="50" x2="100" y2="50" />
-            <line x1="0" y1="0" x2="100" y2="100" />
-            <line x1="100" y1="0" x2="0" y2="100" />
-          </svg>
+        <div className="game-surface">
+          <div className={`fanorona-board ${isThinking ? "is-thinking" : ""}`} role="grid" aria-label="Plateau Fanoro Telo">
+            <svg
+              className="fanorona-lines"
+              viewBox="0 0 100 100"
+              aria-hidden="true"
+            >
+              <rect x="0" y="0" width="100" height="100" rx="0" />
+              <line x1="50" y1="0" x2="50" y2="100" />
+              <line x1="0" y1="50" x2="100" y2="50" />
+              <line x1="0" y1="0" x2="100" y2="100" />
+              <line x1="100" y1="0" x2="0" y2="100" />
+            </svg>
 
-          <div className="fanorona-points">
-            {board.map((cell, index) => {
-              const row = Math.floor(index / 3);
-              const col = index % 3;
-              const top = row * 50;
-              const left = col * 50;
+            <div className="fanorona-points">
+              {board.map((cell, index) => {
+                const row = Math.floor(index / 3);
+                const col = index % 3;
+                const top = row * 50;
+                const left = col * 50;
 
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  className="fanorona-point"
-                  style={{ top: `${top}%`, left: `${left}%` }}
-                  onClick={() => handleClick(index)}
-                  // disabled={game.isTerminal()}
-                  aria-label={`Case ${index + 1}`}
-                >
-                  <span
-                    className={[
-                      "fanorona-piece",
-                      cell === X ? "is-x" : "",
-                      cell === O ? "is-o" : "",
-                      selected === index ? "is-selected" : "",
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    className="fanorona-point"
+                    style={{ top: `${top}%`, left: `${left}%` }}
+                    onClick={() => handleClick(index)}
+                    aria-label={`Case ${index + 1}`}
                   >
-                    {toSymbol(cell)}
-                  </span>
-                </button>
-              );
-            })}
+                    <span
+                      className={[
+                        "fanorona-piece",
+                        cell === X ? "is-x" : "",
+                        cell === O ? "is-o" : "",
+                        selected === index ? "is-selected" : "",
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                    >
+                      {toSymbol(cell)}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
+
+          {isThinking && (
+            <div className="game-overlay" aria-live="polite">
+              <div className="thinking-indicator thinking-indicator-overlay">
+                <span className="thinking-spinner" aria-hidden="true" />
+                <span>L'IA prepare son mouvement...</span>
+              </div>
+            </div>
+          )}
         </div>
 
         <button

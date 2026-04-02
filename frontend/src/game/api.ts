@@ -20,6 +20,7 @@ export class GetBestMoveIa {
       console.error(e);
     }
   }
+
   async bestMovePuissance4(board: number[]) {
     try {
       const response = await fetch(`${apiBaseUrl}/puissance4-move`, {
@@ -32,6 +33,7 @@ export class GetBestMoveIa {
       console.error("Erreur IA:", error);
     }
   }
+
   async bestMoveFanorona(newBoard: number[], nextTurn: number) {
     try {
       const res = await fetch(`${apiBaseUrl}/fanorona-move`, {

@@ -8,6 +8,7 @@ import {
 } from "@/presentation/shared/utils/fanoronaUtils";
 import "@/presentation/styles/fanorona.css";
 import { GetBestMoveIa } from "@/game/api";
+import { useDelayedThinking } from "./useDelayedThinking";
 
 const best = new GetBestMoveIa();
 
@@ -17,13 +18,12 @@ export const useFanoronaTelo = () => {
     turn: X as number,
   });
   const [selected, setSelected] = useState<number | null>(null);
-  const [isThinking, setIsThinking] = useState(false);
+  const { isThinking, beginThinking, stopThinking } = useDelayedThinking();
 
   const { board, turn } = gameState;
   const placementMode = isPlacementPhase(board);
   const winner = checkWinner(board);
 
-  // On calcule les coups valides pour vérifier le clic de l'utilisateur
   const validMoves = useMemo(() => getSuccessors(board, turn), [board, turn]);
 
   const playMove = async (nextBoard: number[]) => {
@@ -32,7 +32,8 @@ export const useFanoronaTelo = () => {
 
     if (checkWinner(nextBoard) !== 0 || isThinking) return;
 
-    setIsThinking(true);
+    beginThinking();
+
     try {
       const data = await best.bestMoveFanorona(nextBoard, nextTurn);
       if (!data) {
@@ -42,7 +43,7 @@ export const useFanoronaTelo = () => {
     } catch (e) {
       console.error(e);
     } finally {
-      setIsThinking(false);
+      stopThinking();
     }
   };
 
@@ -58,9 +59,8 @@ export const useFanoronaTelo = () => {
         if (board[index] === X) setSelected(index);
       } else {
         if (board[index] === X) {
-          setSelected(index); // Change de pion sélectionné
+          setSelected(index);
         } else {
-          // Tente un déplacement du pion 'selected' vers 'index'
           const move = validMoves.find(
             (m) => m[selected] === 0 && m[index] === X
           );
@@ -70,10 +70,14 @@ export const useFanoronaTelo = () => {
       }
     }
   };
+
   return {
     placementMode,
     board,
     selected,
+    turn,
+    winner,
+    isThinking,
     setGameState,
     handleClick,
   };
