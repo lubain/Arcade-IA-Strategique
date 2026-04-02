@@ -12,16 +12,15 @@ from constant import O_PLAYER, X_PLAYER
 
 app = FastAPI()
 
+allowed_origins = [
+    origin.strip()
+    for origin in settings.frontend_urls.split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    # Autorise plusieurs origines locales pour éviter les erreurs CORS en dev
-    allow_origins=[
-        settings.frontend_url,
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
