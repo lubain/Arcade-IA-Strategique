@@ -1,7 +1,7 @@
-import Puissance4 from "./components/Puissance4";
+import GameHub from "./page/GameHub";
 
 const App = () => {
-  return <Puissance4 />;
+  return <GameHub />;
 };
 
 export default App;

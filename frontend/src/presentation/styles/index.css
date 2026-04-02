@@ -35,15 +35,21 @@ body {
   --cell-hover: #475569;
 }
 
+.bg-color {
+  background-color: var(--bg-color);
+}
+
 .ttt-page {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: var(--bg-color);
+  background-color: var(--bg-color); */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-family: 'Inter', system-ui, sans-serif;
   color: var(--text-main);
-  padding: 20px;
 }
 
 .ttt-card {
@@ -72,41 +78,6 @@ body {
   height: 1.5rem;
 }
 
-/* La Grille Responsive */
-.ttt-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 2rem;
-}
-
-.ttt-cell {
-  aspect-ratio: 1 / 1; /* Garde la case carrée */
-  background: var(--cell-bg);
-  border: none;
-  border-radius: 0.75rem;
-  font-size: 2.5rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.ttt-cell:hover:not(:disabled) {
-  background: var(--cell-hover);
-  transform: translateY(-2px);
-}
-
-.ttt-cell:disabled {
-  cursor: default;
-}
-
-/* Couleurs des symboles */
-.ttt-x { color: var(--accent-x); text-shadow: 0 0 15px rgba(45, 212, 191, 0.4); }
-.ttt-o { color: var(--accent-o); text-shadow: 0 0 15px rgba(251, 113, 133, 0.4); }
-
 /* Bouton Rejouer */
 .ttt-reset {
   width: 100%;
@@ -122,205 +93,4 @@ body {
 
 .ttt-reset:hover {
   opacity: 0.9;
-}
-
-/* Conteneur pour s'assurer que la ligne ne déborde pas de la grille */
-.ttt-grid-container {
-  position: relative;
-  width: 100%;
-}
-
-.win-line {
-  position: absolute;
-  background-color: var(--text-main);
-  border-radius: 10px;
-  z-index: 10;
-  pointer-events: none;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-  /* Animation d'apparition */
-  animation: grow 0.3s ease-out forwards;
-}
-
-/* --- LIGNES HORIZONTALES --- */
-/* On centre sur 1/6, 3/6 (50%) et 5/6 de la hauteur totale */
-.win-line.h-1 { top: calc(100% / 6); left: 5%; width: 90%; height: 6px; transform: translateY(-50%); }
-.win-line.h-2 { top: 50%; left: 5%; width: 90%; height: 6px; transform: translateY(-50%); }
-.win-line.h-3 { top: calc(500% / 6); left: 5%; width: 90%; height: 6px; transform: translateY(-50%); }
-
-/* --- LIGNES VERTICALES --- */
-.win-line.v-1 { left: calc(100% / 6); top: 5%; height: 90%; width: 6px; transform: translateX(-50%); }
-.win-line.v-2 { left: 50%; top: 5%; height: 90%; width: 6px; transform: translateX(-50%); }
-.win-line.v-3 { left: calc(500% / 6); top: 5%; height: 90%; width: 6px; transform: translateX(-50%); }
-
-/* --- DIAGONALES --- */
-/* Pour les diagonales, on part du centre exact d'un coin vers l'autre */
-.win-line.d-1 { 
-  top: 0; left: 0; 
-  width: 141%; height: 6px; /* 141% = hypoténuse d'un carré de 100 */
-  transform: rotate(45deg); 
-  transform-origin: top left;
-}
-.win-line.d-2 { 
-  top: 0; right: 0; 
-  width: 141%; height: 6px; 
-  transform: rotate(-45deg); 
-  transform-origin: top right;
-}
-
-@keyframes grow {
-  from { opacity: 0; transform: scale(0.8) translateY(-50%); } /* Ajuste selon le type si besoin */
-  to { opacity: 1; scale: 1; }
-}
-
-.fanorona-board {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 2rem auto;
-}
-
-.fanorona-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  stroke: var(--text-muted);
-  stroke-width: 2;
-  fill: none;
-}
-
-.fanorona-points {
-  position: absolute;
-  inset: 0;
-  overflow: visible;
-}
-
-.fanorona-point {
-  position: absolute;
-  border: 0;
-  background: transparent;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transform: translate(-50%, -50%);
-}
-
-.fanorona-point:disabled {
-  cursor: not-allowed;
-}
-
-.fanorona-piece {
-  width: clamp(26px, 6vw, 36px);
-  height: clamp(26px, 6vw, 36px);
-  border-radius: 50%;
-  background: #e7e0d7;
-  color: #2a2a2a;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: clamp(0.95rem, 2.4vw, 1.2rem);
-  box-shadow:
-    0 2px 6px rgba(30, 30, 30, 0.22),
-    inset 0 0 0 2px rgba(20, 20, 20, 0.08);
-  transition: transform 120ms ease, box-shadow 140ms ease,
-    background-color 140ms ease;
-}
-
-.fanorona-piece.is-x {
-  background: radial-gradient(circle at 30% 30%, #ffffff, #6cc6ff);
-  color: #0b3b6e;
-}
-
-.fanorona-piece.is-o {
-  background: radial-gradient(circle at 30% 30%, #fff3ea, #ff8f6b);
-  color: #6e1f10;
-}
-
-.fanorona-point:hover .fanorona-piece:not(.is-x):not(.is-o) {
-  transform: translateY(-1px);
-  box-shadow:
-    0 4px 10px rgba(30, 30, 30, 0.24),
-    inset 0 0 0 2px rgba(20, 20, 20, 0.12);
-}
-
-.fanorona-piece.is-selected {
-  outline: 3px solid var(--accent-x);
-  border-radius: 50%;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-.p4-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Segoe UI', sans-serif;
-  color: white;
-}
-
-.status-bar {
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-/* Le Plateau Bleu */
-.p4-board {
-  background-color: #2c3e50; /* Bleu foncé pour le cadre */
-  padding: 10px;
-  border-radius: 10px;
-  display: grid;
-  grid-template-columns: repeat(7, 60px); /* 7 colonnes */
-  grid-template-rows: repeat(6, 60px);    /* 6 lignes */
-  gap: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-/* Chaque case */
-.p4-cell {
-  width: 60px;
-  height: 60px;
-  background-color: #34495e; /* Couleur de fond des trous */
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.p4-cell:hover {
-  background-color: #435c75;
-}
-
-/* Les Pions */
-.p4-slot {
-  width: 85%;
-  height: 85%;
-  border-radius: 50%;
-  transition: transform 0.3s ease-in;
-}
-
-.slot-1 { background-color: #e74c3c; box-shadow: inset 0 -4px 5px rgba(0,0,0,0.3); }  /* Rouge */
-.slot--1 { background-color: #f1c40f; box-shadow: inset 0 -4px 5px rgba(0,0,0,0.3); } /* Jaune */
-.slot-0 { background-color: #1a252f; } /* Vide */
-
-/* Couleurs de texte */
-.text-red { color: #e74c3c; }
-.text-yellow { color: #f1c40f; }
-
-.reset-btn {
-  margin-top: 30px;
-  padding: 10px 25px;
-  background: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
 }
