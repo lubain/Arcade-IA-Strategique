@@ -1,0 +1,14 @@
+[project]
+name = "game-backend"
+version = "0.1.0"
+requires-python = "==3.11.*"
+dependencies = [
+    "fastapi[standard]",
+    "pydantic==2.8.2",
+    "pydantic-settings==2.13.1",
+    "pydantic_core==2.20.1",
+    "uvicorn==0.30.6",
+]
+
+[tool.fastapi]
+entrypoint = "main:app"

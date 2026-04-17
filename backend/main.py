@@ -37,6 +37,10 @@ class GameResponse(BaseModel):
     next_turn: int
     message: str
 
+@app.get("/")
+def main():
+    return {"message": "Hello World"}
+
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
