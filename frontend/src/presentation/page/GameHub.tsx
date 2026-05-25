@@ -234,7 +234,7 @@ function TicTacToeGame({ onBack }: { onBack: () => void }) {
             </button>
           ))}
         </div>
-        {thinking && <ThinkingOverlay text="L'IA réfléchit à son coup…" />}
+        {/* {thinking && <ThinkingOverlay text="L'IA réfléchit à son coup…" />} */}
       </div>
     </div>
   );
@@ -459,7 +459,7 @@ function FanoronaGame({ onBack }: { onBack: () => void }) {
             })}
           </div>
         </div>
-        {thinking && <ThinkingOverlay text="L'IA cherche son mouvement…" />}
+        {/* {thinking && <ThinkingOverlay text="L'IA cherche son mouvement…" />} */}
       </div>
     </div>
   );
@@ -574,7 +574,7 @@ function Puissance4Game({ onBack }: { onBack: () => void }) {
             );
           })}
         </div>
-        {thinking && <ThinkingOverlay text="L'IA évalue les colonnes…" />}
+        {/* {thinking && <ThinkingOverlay text="L'IA évalue les colonnes…" />} */}
       </div>
     </div>
   );
