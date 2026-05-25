@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-const DEFAULT_DELAY_MS = 1000;
+const DEFAULT_DELAY_MS = 2000;
 
 export const useDelayedThinking = (delayMs = DEFAULT_DELAY_MS) => {
   const [isThinking, setIsThinking] = useState(false);
