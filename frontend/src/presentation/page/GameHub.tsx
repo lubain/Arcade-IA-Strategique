@@ -668,54 +668,12 @@ const GAMES = [
 function HubHome({ onSelect }: { onSelect: (g: GameType) => void }) {
   return (
     <div className="hub-home">
-      <header className="hub-header">
-        <div className="hub-logo">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-            <rect width="40" height="40" rx="10" fill="url(#logoGrad)" />
-            <path
-              d="M12 28V12l8 8 8-8v16"
-              stroke="white"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <defs>
-              <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40">
-                <stop stopColor="#6366f1" />
-                <stop offset="1" stopColor="#8b5cf6" />
-              </linearGradient>
-            </defs>
-          </svg>
-          <span>Strategy AI</span>
-        </div>
-        <div className="hub-badge-alpha">Alpha-Beta IA</div>
-      </header>
-
       <section className="hub-hero">
         <h1 className="hub-title">
           Défiez l'Intelligence
           <br />
           <span className="hub-title-accent">Artificielle</span>
         </h1>
-        <p className="hub-subtitle">
-          Trois jeux de réflexion classiques propulsés par l'algorithme
-          Alpha-Beta.
-          <br />
-          Chaque coup est calculé pour maximiser vos défis.
-        </p>
-
-        <div className="hub-stats">
-          {[
-            { val: "3", lbl: "Jeux" },
-            { val: "α-β", lbl: "Algorithme" },
-            { val: "∞", lbl: "Parties" },
-          ].map(({ val, lbl }) => (
-            <div key={lbl} className="hub-stat">
-              <span className="hub-stat-val">{val}</span>
-              <span className="hub-stat-lbl">{lbl}</span>
-            </div>
-          ))}
-        </div>
       </section>
 
       <section className="hub-grid">
