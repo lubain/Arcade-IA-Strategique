@@ -35,7 +35,7 @@ const GameHub = () => {
       {/* En-tête */}
       <div className="max-w-7xl mx-auto text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-4">
-          Arcade IA Stratégique
+          Strategy IA Games
         </h1>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
           Défiez notre intelligence artificielle sur 3 jeux de réflexion
