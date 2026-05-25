@@ -41,14 +41,6 @@ body {
   padding: 0 1.5rem 3rem;
 }
 
-.hub-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
 .hub-logo {
   display: flex;
   align-items: center;
@@ -348,14 +340,6 @@ body {
   align-items: center;
   padding: 1.5rem 1rem 3rem;
   gap: 1.25rem;
-}
-
-.hub-game-header {
-  width: 100%;
-  max-width: 560px;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 .hub-back-btn {
@@ -759,10 +743,6 @@ body {
   }
   .hub-grid {
     grid-template-columns: 1fr;
-  }
-  .hub-game-header {
-    flex-wrap: wrap;
-    justify-content: space-between;
   }
   .hub-game-title {
     order: -1;
