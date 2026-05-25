@@ -1,5 +1,4 @@
 import { isBoardFull, X, EMPTY } from "@/game/puissance4Utils";
-import "@/presentation/styles/p4.css";
 import { usePuissance4 } from "../hooks/usePuissance4";
 
 const Puissance4 = () => {
@@ -31,7 +30,11 @@ const Puissance4 = () => {
         <div className="game-surface p4-surface">
           <div className={`p4-board ${isThinking ? "is-thinking" : ""}`}>
             {board.map((cell, i) => (
-              <div key={i} className="p4-cell" onClick={() => handleCellClick(i)}>
+              <div
+                key={i}
+                className="p4-cell"
+                onClick={() => handleCellClick(i)}
+              >
                 <div className={`p4-slot slot-${cell}`} />
               </div>
             ))}

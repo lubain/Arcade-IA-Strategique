@@ -1,6 +1,5 @@
 import { O, X } from "@/game/FanoronaTelo";
 import { useFanoronaTelo } from "../hooks/useFanoronaTelo";
-import "@/presentation/styles/fanorona.css";
 
 const toSymbol = (value: number): string => {
   if (value === X) return "X";
@@ -36,7 +35,11 @@ const FanoronaTelo = () => {
         </p>
 
         <div className="game-surface">
-          <div className={`fanorona-board ${isThinking ? "is-thinking" : ""}`} role="grid" aria-label="Plateau Fanoro Telo">
+          <div
+            className={`fanorona-board ${isThinking ? "is-thinking" : ""}`}
+            role="grid"
+            aria-label="Plateau Fanoro Telo"
+          >
             <svg
               className="fanorona-lines"
               viewBox="0 0 100 100"

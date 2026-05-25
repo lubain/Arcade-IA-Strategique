@@ -1,5 +1,4 @@
 import { checkWinner, isFull, O, X } from "../shared/utils/gameUtils";
-import "@/presentation/styles/ttt.css";
 import { useTicTacToe } from "../hooks/useTicTacToe";
 
 const TicTacToe = () => {
