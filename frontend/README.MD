@@ -21,12 +21,3 @@ cd frontend
 npm install
 npm run dev
 ```
-
-**Structure**
-
-1. `src/game/GameNode.ts` : base des jeux + alpha-bêta
-1. `src/game/TicTacToe.ts` : logique Tic Tac Toe
-1. `src/game/FanoronaTelo.ts` : logique Fanorona Telo
-1. `src/presentation/components` : interfaces React
-
-Si tu veux ajouter un nouveau jeu ou ajuster la difficulté de l'IA, je peux t'aider à le faire.
