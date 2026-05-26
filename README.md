@@ -4,7 +4,7 @@
 
 ```
  ┌─────────────────────────────────────────────────┐
- │   ❌⭕  Tic-Tac-Toe  ·  ⬡ Fanorona  ·  🔴 P4   │
+ │   ❌⭕  Tic-Tac-Toe  ·  ⬡ Fanorona  ·  🔴 P4  │
  │              Moteur IA : Alpha-Beta             │
  └─────────────────────────────────────────────────┘
 ```
@@ -116,29 +116,68 @@ strategy-ai-games/
 │   ├── config.py              # Config via pydantic-settings (.env)
 │   ├── main.py                # Routes FastAPI
 │   ├── requirements.txt
-│   ├── Dockerfile
-│   └── .env.example
+│   ├── pyproject.toml
+│   └── Dockerfile
 │
 ├── frontend/
 │   ├── src/
-│   │   └── presentation/
-│   │       ├── page/
-│   │       │   └── GameHub.tsx         # Page d'accueil + routing des jeux
-│   │       ├── components/
-│   │       │   ├── TicTacToe.tsx
-│   │       │   ├── FanoronaTelo.tsx
-│   │       │   └── Puissance4.tsx
-│   │       ├── hooks/
-│   │       │   ├── useTicTacToe.ts
-│   │       │   ├── useFanoronaTelo.ts
-│   │       │   ├── usePuissance4.ts
-│   │       │   └── useDelayedThinking.ts
-│   │       └── styles/
-│   │           └── index.css           # Variables CSS globales
-│   │
+│   │   ├── applications/
+│   │   │   ├── hooks/
+│   │   │   │   ├── useTicTacToeGame.ts
+│   │   │   │   ├── useFanoronaGame.ts
+│   │   │   │   └── usePuissance4Game.ts
+│   │   │   └── utils/
+│   │   │       ├── checkTTT.ts
+│   │   │       ├── checkFanorona.ts
+│   │   │       ├── checkP4.ts
+│   │   │       ├── dropP4.ts
+│   │   │       ├── fanoronaSuccessors.ts
+│   │   │       ├── isPlacement.ts
+│   │   │       └── index.ts
+│   │   ├── domain/
+│   │   │   ├── constants/
+│   │   │   │   ├── API.ts
+│   │   │   │   ├── COLS.ts
+│   │   │   │   ├── EMPTY.ts
+│   │   │   │   ├── FANORONA_ADJ.ts
+│   │   │   │   ├── GAMES.tsx
+│   │   │   │   ├── O.ts
+│   │   │   │   ├── ROWS.ts
+│   │   │   │   ├── TTT_LINES.ts
+│   │   │   │   ├── X.ts
+│   │   │   │   └── index.ts
+│   │   │   └── types/
+│   │   │       ├── GameType.ts
+│   │   │       └── index.ts
+│   │   ├── infrastructure/
+│   │   │   └── ApiPost.ts              # Appels HTTP vers le backend
+│   │   ├── presentation/
+│   │   │   ├── page/
+│   │   │   │   ├── GameHub.tsx         # Page d'accueil + routing des jeux
+│   │   │   │   ├── TicTacToeGame.tsx
+│   │   │   │   ├── FanoronaGame.tsx
+│   │   │   │   └── Puissance4Game.tsx
+│   │   │   ├── components/
+│   │   │   │   ├── GameStatusBar.tsx
+│   │   │   │   ├── ThinkingOverlay.tsx
+│   │   │   │   └── ui/
+│   │   │   │       └── ResetBtn.tsx
+│   │   │   └── styles/
+│   │   │       ├── App.css
+│   │   │       └── index.css
+│   │   ├── assets/
+│   │   └── main.tsx
+│   ├── public/
+│   ├── nginx/
+│   │   └── default.conf
 │   ├── index.html
 │   ├── vite.config.ts
+│   ├── tsconfig.json
+│   ├── tsconfig.app.json
+│   ├── tsconfig.node.json
 │   ├── tailwind.config.js
+│   ├── postcss.config.js
+│   ├── eslint.config.js
 │   ├── package.json
 │   └── Dockerfile
 │
